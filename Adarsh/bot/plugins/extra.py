@@ -19,7 +19,7 @@ async def start(bot, update):
 
 @StreamBot.on_message(filters.command("list"))
 async def list(l, m):
-    LIST_MSG = "Hi! {} Here is a list of all my commands \n \n 1 . `start⚡️` \n 2. `help📚` \n 3. `login🔑` \n 4.`ping📡` \n 5. `status📊` \n 6. `DC` this tells your telegram dc "
+    LIST_MSG = "Hi! {} Here is a list of all my commands \n \n 1 . `start⚡️` \n 2. `help📚` \n 3.`ping📡` \n 5. `status📊` \n 6. `DC` this tells your telegram dc "
     await l.send_message(chat_id=m.chat.id,
                          text=LIST_MSG.format(m.from_user.mention(style="md"))
                          )
