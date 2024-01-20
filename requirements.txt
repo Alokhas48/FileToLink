@@ -1,4 +1,4 @@
-git+https://github.com/MKN-BOTZ/pyrogram
+pyrogram
 tgcrypto<=1.2.3
 aiohttp
 python-dotenv<=0.20.0
