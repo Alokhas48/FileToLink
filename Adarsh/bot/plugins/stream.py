@@ -64,7 +64,7 @@ async def private_receive_handler(c: Client, m: Message):
     if Var.UPDATES_CHANNEL != "None":
         try:
             user = await c.get_chat_member(Var.UPDATES_CHANNEL, m.chat.id)
-            if user.status == "banned":
+            if user.status == "kicked":
                 await c.send_message(
                     chat_id=m.chat.id,
                     text="You are banned!\n\n  **Cᴏɴᴛᴀᴄᴛ Dᴇᴠᴇʟᴏᴘᴇʀ [LINUX BOTS](https://t.me/Linux_Bots) ʜᴇ Wɪʟʟ Hᴇʟᴘ Yᴏᴜ**",
