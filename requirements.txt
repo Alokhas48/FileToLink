@@ -1,11 +1,11 @@
-git+https://github.com/MKN-BOTZ/pyrogram
-tgcrypto<=1.2.3
+pyrogram 
+tgcrypto
 aiohttp
-python-dotenv<=0.20.0
+python-dotenv
 motor
 aiofiles
 dnspython
 apscheduler
 requests
 psutil
-pyromod==1.5
+pyromod
