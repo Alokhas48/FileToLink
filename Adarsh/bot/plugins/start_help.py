@@ -1,4 +1,5 @@
 # (c) adarsh-goel 
+from pyrogram import enums
 from Adarsh.bot import StreamBot
 from Adarsh.vars import Var
 import logging
@@ -45,12 +46,8 @@ async def start(b, m):
     if Var.UPDATES_CHANNEL != "None":
         try:
             user = await b.get_chat_member(Var.UPDATES_CHANNEL, m.chat.id)
-            if user.status == "kicked":
-                await b.send_message(
-                    chat_id=m.chat.id,
-                    text="__You Are Banned__\n\n  **𝙃𝙚 𝙬𝙞𝙡𝙡 𝙝𝙚𝙡𝙥 𝙮𝙤𝙪**",
-                    disable_web_page_preview=True
-                )
+if user.status == enums.ChatMemberStatus.BANNED:
+    await b.send_message(chat_id=m.chat.id, text="You Are Banned\n\n  𝙃𝙚 𝙬𝙞𝙡𝙡 𝙝𝙚𝙡𝙥 𝙮𝙤𝙪", disable_web_page_preview=True)
                 return
         except UserNotParticipant:
              await StreamBot.send_photo(
@@ -91,14 +88,9 @@ async def help_handler(bot, message):
         )
     if Var.UPDATES_CHANNEL != "None":
         try:
-            user = await bot.get_chat_member(Var.UPDATES_CHANNEL, message.chat.id)
-            if user.status == "kicked":
-                await bot.send_message(
-                    chat_id=message.chat.id,
-                    text="<i>Sᴏʀʀʏ Sɪʀ, Yᴏᴜ ᴀʀᴇ Bᴀɴɴᴇᴅ FROM USING ᴍᴇ. Cᴏɴᴛᴀᴄᴛ ᴛʜᴇ Dᴇᴠᴇʟᴏᴘᴇʀ</i>",
-                    
-                    disable_web_page_preview=True
-                )
+            user = await b.get_chat_member(Var.UPDATES_CHANNEL, m.chat.id)
+if user.status == enums.ChatMemberStatus.BANNED:
+    await b.send_message(chat_id=m.chat.id, text="You Are Banned\n\n  𝙃𝙚 𝙬𝙞𝙡𝙡 𝙝𝙚𝙡𝙥 𝙮𝙤𝙪", disable_web_page_preview=True)
                 return
         except UserNotParticipant:
             await StreamBot.send_photo(
