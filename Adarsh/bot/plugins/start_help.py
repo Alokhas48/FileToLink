@@ -1,122 +1,114 @@
-# (c) adarsh-goel 
 from pyrogram import enums
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
+from pyrogram.errors import UserNotParticipant
+from pyrogram import filters
 from Adarsh.bot import StreamBot
 from Adarsh.vars import Var
-import logging
-logger = logging.getLogger(__name__)
 from Adarsh.bot.plugins.stream import MY_PASS
-from Adarsh.utils.human_readable import humanbytes
 from Adarsh.utils.database import Database
-from pyrogram import filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from pyrogram.errors import UserNotParticipant
 from Adarsh.utils.file_properties import get_name, get_hash, get_media_file_size
+import logging
+
+logger = logging.getLogger(__name__)
 db = Database(Var.DATABASE_URL, Var.name)
-from pyrogram.types import ReplyKeyboardMarkup
 
 if MY_PASS:
-            buttonz=ReplyKeyboardMarkup(
-            [
-                ["start⚡️","help📚","DC"],
-                ["ping📡","status📊"]
-                        
-            ],
-            resize_keyboard=True
-        )
+    buttonz = ReplyKeyboardMarkup(
+        [
+            ["start⚡️", "help📚", "DC"],
+            ["ping📡", "status📊"]
+        ],
+        resize_keyboard=True
+    )
 else:
-            buttonz=ReplyKeyboardMarkup(
-            [
-                ["start⚡️","help📚","DC"],
-                ["ping📡","status📊"]
-                        
-            ],
-            resize_keyboard=True
-        )
+    buttonz = ReplyKeyboardMarkup(
+        [
+            ["start⚡️", "help📚", "DC"],
+            ["ping📡", "status📊"]
+        ],
+        resize_keyboard=True
+    )
 
-            
-            
-@StreamBot.on_message((filters.command("start") | filters.regex('start⚡️')) & filters.private )
+
+@StreamBot.on_message((filters.command("start") | filters.regex('start⚡️')) & filters.private)
 async def start(b, m):
     if not await db.is_user_exist(m.from_user.id):
         await db.add_user(m.from_user.id)
         await b.send_message(
             Var.BIN_CHANNEL,
-            f"**Nᴇᴡ Usᴇʀ Jᴏɪɴᴇᴅ:** \n\n__Mʏ Nᴇᴡ Fʀɪᴇɴᴅ__ [{m.from_user.first_name}](tg://user?id={m.from_user.id}) __Sᴛᴀʀᴛᴇᴅ Yᴏᴜʀ Bᴏᴛ !!__"
+            f"**New User Joined:** \n\n__My New Friend__ [{m.from_user.first_name}](tg://user?id={m.from_user.id}) __Started Your Bot !!__"
         )
     if Var.UPDATES_CHANNEL != "None":
         try:
             user = await b.get_chat_member(Var.UPDATES_CHANNEL, m.chat.id)
-if user.status == enums.ChatMemberStatus.BANNED:
-    await b.send_message(chat_id=m.chat.id, text="You Are Banned\n\n  𝙃𝙚 𝙬𝙞𝙡𝙡 𝙝𝙚𝙡𝙥 𝙮𝙤𝙪", disable_web_page_preview=True)
+            if user.status == enums.ChatMemberStatus.BANNED:
+                await b.send_message(chat_id=m.chat.id, text="You Are Banned\n\n  He will help you", disable_web_page_preview=True)
                 return
         except UserNotParticipant:
-             await StreamBot.send_photo(
+            await StreamBot.send_photo(
                 chat_id=m.chat.id,
                 photo="https://graph.org/file/57bb7cd0a8566bd93f3df.jpg",
-                caption="<i>𝙹𝙾𝙸𝙽 CHANNEL 𝚃𝙾 𝚄𝚂𝙴 𝙼𝙴🔐</i>",
+                caption="<i>Join CHANNEL TO USE ME🔐</i>",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton("Jᴏɪɴ ɴᴏᴡ 🔓", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
+                            InlineKeyboardButton("Join now 🔓", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
                         ]
                     ]
                 ),
-                
             )
-             return
+            return
         except Exception:
             await b.send_message(
                 chat_id=m.chat.id,
-                text="<i>𝓢𝓸𝓶𝓮𝓽𝓱𝓲𝓷𝓰 𝔀𝓮𝓷𝓽 𝔀𝓻𝓸𝓷𝓰</i> <b> <a href='https://t.me/Discuss_Linux'>CLICK HERE FOR SUPPORT </a></b>",
-                
+                text="<i>Something went wrong</i> <b> <a href='https://t.me/Discuss_Linux'>CLICK HERE FOR SUPPORT </a></b>",
                 disable_web_page_preview=True)
             return
     await StreamBot.send_photo(
         chat_id=m.chat.id,
-        photo ="https://graph.org/file/6f07d643cbcfa5b3ccffb.jpg",
-        caption =f'Hi {m.from_user.mention(style="md")}!,\nI am Telegram File to Link Generator Bot with Channel support.\nSend me any file and get a direct download link and streamable link.!',
-        reply_markup=buttonz)
+        photo="https://graph.org/file/6f07d643cbcfa5b3ccffb.jpg",
+        caption=f'Hi {m.from_user.mention(style="md")}!,\nI am Telegram File to Link Generator Bot with Channel support.\nSend me any file and get a direct download link and streamable link.!',
+        reply_markup=buttonz
+    )
 
 
-@StreamBot.on_message((filters.command("help") | filters.regex('help📚')) & filters.private )
+@StreamBot.on_message((filters.command("help") | filters.regex('help📚')) & filters.private)
 async def help_handler(bot, message):
     if not await db.is_user_exist(message.from_user.id):
         await db.add_user(message.from_user.id)
         await bot.send_message(
             Var.BIN_CHANNEL,
-            f"**Nᴇᴡ Usᴇʀ Jᴏɪɴᴇᴅ **\n\n__Mʏ Nᴇᴡ Fʀɪᴇɴᴅ__ [{message.from_user.first_name}](tg://user?id={message.from_user.id}) __Started Your Bot !!__"
+            f"**New User Joined **\n\n__My New Friend__ [{message.from_user.first_name}](tg://user?id={message.from_user.id}) __Started Your Bot !!__"
         )
     if Var.UPDATES_CHANNEL != "None":
         try:
             user = await b.get_chat_member(Var.UPDATES_CHANNEL, m.chat.id)
-if user.status == enums.ChatMemberStatus.BANNED:
-    await b.send_message(chat_id=m.chat.id, text="You Are Banned\n\n  𝙃𝙚 𝙬𝙞𝙡𝙡 𝙝𝙚𝙡𝙥 𝙮𝙤𝙪", disable_web_page_preview=True)
+            if user.status == enums.ChatMemberStatus.BANNED:
+                await b.send_message(chat_id=m.chat.id, text="You Are Banned\n\n  He will help you", disable_web_page_preview=True)
                 return
         except UserNotParticipant:
             await StreamBot.send_photo(
                 chat_id=message.chat.id,
                 photo="https://graph.org/file/6f07d643cbcfa5b3ccffb.jpg",
-                Caption="**𝙹𝙾𝙸𝙽 𝚂𝚄𝙿𝙿𝙾𝚁𝚃 𝙶𝚁𝙾𝚄𝙿 𝚃𝙾 𝚄𝚂𝙴 ᴛʜɪs Bᴏᴛ!**\n\n__Dᴜᴇ ᴛᴏ Oᴠᴇʀʟᴏᴀᴅ, Oɴʟʏ Cʜᴀɴɴᴇʟ Sᴜʙsᴄʀɪʙᴇʀs ᴄᴀɴ ᴜsᴇ ᴛʜᴇ Bᴏᴛ!__",
+                Caption="**JOIN SUPPORT GROUP TO USE this Bot!**\n\n__Due to Overload, Only Channel Subscribers can use the Bot!__",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton("🤖 Jᴏɪɴ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
+                            InlineKeyboardButton("🤖 Join Updates Channel", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
                         ]
                     ]
                 ),
-                
             )
             return
         except Exception:
             await bot.send_message(
                 chat_id=message.chat.id,
-                text="__Sᴏᴍᴇᴛʜɪɴɢ ᴡᴇɴᴛ Wʀᴏɴɢ. Cᴏɴᴛᴀᴄᴛ ᴍᴇ__ [Alok](https://t.me/Prime_Alok).",
+                text="__Something went Wrong. Contact me__ [Alok](https://t.me/Prime_Alok).",
                 disable_web_page_preview=True)
             return
     await message.reply_text(
         text="""<b> Send me any file or video i will give you streamable link and download link.</b>\n
 <b> I also support Channels, add me to you Channel and send any media files and see miracle✨ also send /list to know all commands""",
-        
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(
             [
@@ -124,4 +116,4 @@ if user.status == enums.ChatMemberStatus.BANNED:
                 [InlineKeyboardButton("Developer", url="https://t.me/Prime_Alok")]
             ]
         )
-                                          )
+    )
