@@ -61,7 +61,7 @@ async def start(b, m):
         except Exception:
             await b.send_message(
                 chat_id=m.chat.id,
-                text="<i>Something went wrong</i> <b> <a href='https://t.me/Discuss_Linux'>CLICK HERE FOR SUPPORT </a></b>",
+                text="<i>Use Our V2 Bot</i> <b> <a href='https://t.me/Direct_D_L_Bot'>FILE TO LINK BOT </a></b>",
                 disable_web_page_preview=True)
             return
     await StreamBot.send_photo(
@@ -103,7 +103,7 @@ async def help_handler(bot, message):
         except Exception:
             await bot.send_message(
                 chat_id=message.chat.id,
-                text="__Something went Wrong. Contact me__ [Alok](https://t.me/Prime_Alok).",
+                text="__Use Our V2 Bot__ [FILE TO LINK](https://t.me/Direct_D_L_Bot).",
                 disable_web_page_preview=True)
             return
     await message.reply_text(
