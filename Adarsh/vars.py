@@ -13,9 +13,9 @@ class Var(object):
     API_HASH = str(getenv('API_HASH', 'f672963099862a8a20a5f7dfe27f4b56'))
     BOT_TOKEN = str(getenv('BOT_TOKEN', '6895315780:AAF7NsDlA61LkoDC4kKMHcUIPP9_-GhO4iw'))
     name = str(getenv('name', 'Files_2_Link_Bot'))
-    SLEEP_THRESHOLD = int(getenv('SLEEP_THRESHOLD', '0'))
+    SLEEP_THRESHOLD = int(getenv('SLEEP_THRESHOLD', '60'))
     WORKERS = int(getenv('WORKERS', '4'))
-    BIN_CHANNEL = int(getenv('BIN_CHANNEL', '-1002017128093'))
+    BIN_CHANNEL = int(getenv('BIN_CHANNEL', '-1002230610165'))
     PORT = int(getenv('PORT', 8080))
     BIND_ADRESS = str(getenv('WEB_SERVER_BIND_ADDRESS', '0.0.0.0'))
     PING_INTERVAL = int(environ.get("PING_INTERVAL", "1200"))  # 20 minutes
